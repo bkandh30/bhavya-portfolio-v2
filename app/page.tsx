@@ -105,6 +105,59 @@ export default function Home() {
           ))}
         </ul>
       </Section>
+
+      {/* Projects Section  */}
+      {/* Projects Section */}
+      <Section id="projects" title="Projects">
+        <ul className="grid gap-4 md:grid-cols-2">
+          {projects.map((p) => (
+            <li key={p.name} className="rounded-xl border border-white/10 p-5">
+              <div className="font-medium">{p.name}</div>
+              {p.summary ? <p className="mt-1 text-sm text-gray-300">{p.summary}</p> : null}
+              {!!p.stack?.length && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {p.stack.map((s) => (
+                    <span key={s} className="rounded bg-white/10 px-2 py-0.5 text-xs">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {!!p.bullets?.length && (
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-gray-200">
+                  {p.bullets.map((b, i) => (
+                    <li key={i}>{b}</li>
+                  ))}
+                </ul>
+              )}
+              {p.links && (p.links.github || p.links.live) ? (
+                <div className="mt-3 flex gap-4 text-sm underline">
+                  {p.links.github && (
+                    <a
+                      href={p.links.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-gray-300 transition-colors"
+                    >
+                      GitHub
+                    </a>
+                  )}
+                  {p.links.live && (
+                    <a
+                      href={p.links.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-gray-300 transition-colors"
+                    >
+                      Live
+                    </a>
+                  )}
+                </div>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      </Section>
     </main>
   );
 }
