@@ -6,8 +6,12 @@ export function useActiveSection(ids: string[]) {
 	const [active, setActive] = useState(ids[0] ?? "");
 
 	const observer = useMemo(
-		() =>
-			new IntersectionObserver(
+		() => {
+			if (typeof window === "undefined" || ! window.IntersectionObserver) {
+				return null;
+			}
+
+			return new IntersectionObserver(
 				(entries) => {
 					for (const e of entries) {
 						if (e.isIntersecting) {
@@ -19,11 +23,15 @@ export function useActiveSection(ids: string[]) {
 					rootMargin: "0px 0px -70% 0px",
 					threshold: [0, 0.3, 1]
 				}
-			),
+			);
+		},
 		[]
 	);
 
 	useEffect(() => {
+		if(!observer)
+			return;
+
 		const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
 		
 		els.forEach((el) => observer.observe(el));
