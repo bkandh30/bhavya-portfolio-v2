@@ -24,3 +24,12 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Improve anchor visibility on hover for headings */
+[id] .anchor {
+  opacity: 0;
+}
+
+[id]:hover .anchor {
+  opacity: 1;
+}
