@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Section } from "@/components/section";
 import { about } from "@/content/about";
 import { experience } from "@/content/experience";
+import { education } from "@/content/education";
 import { skills } from "@/content/skills";
 import { projects } from "@/content/projects";
 import { links } from "@/content/links";
@@ -80,6 +81,29 @@ export default function Home() {
           <KV k="Databases" v={skills.databases.join(", ")} />
           <KV k="Concepts" v={skills.concepts.join(", ")} />
         </div>
+      </Section>
+
+      {/* Education Section */}
+      <Section id="education" title="Education">
+        <ul className="space-y-4">
+          {education.map((e) => (
+            <li key={`${e.school}-${e.degree}`}>
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <div className="font-medium">
+                  {e.school} — {e.degree}
+                </div>
+                <div className="text-sm text-gray-400">{e.dates}</div>
+              </div>
+              {e.notes?.length ? (
+                <ul className="mt-2 list-disc space-y-1 pl-5 text-gray-200">
+                  {e.notes.map((n, i) => (
+                    <li key={i}>{n}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </li>
+          ))}
+        </ul>
       </Section>
     </main>
   );
