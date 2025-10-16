@@ -8,6 +8,7 @@ import { skills } from "@/content/skills";
 import { projects } from "@/content/projects";
 import { TechBadges } from "@/components/tech-badges";
 import { links } from "@/content/links";
+import { isValidUrl } from "@/lib/validate";
 
 export default function Home() {
   return (
@@ -104,11 +105,20 @@ export default function Home() {
         </Section>
 
         {/* Projects Section */}
+        {/* Projects Section */}
         <Section id="projects" title="Projects">
           <ul className="grid gap-4 md:grid-cols-2">
             {projects.map((p) => (
-              <li key={p.name} className="rounded-xl border border-white/10 p-5">
-                <div className="font-medium">{p.name}</div>
+              <li key={p.slug} className="rounded-xl border border-white/10 p-5">
+                <div className="font-medium">
+                  <a
+                    href={`/projects/${p.slug}`}
+                    className="underline hover:text-gray-300 transition-colors"
+                  >
+                    {p.name}
+                  </a>
+                  {p.year ? <span className="ml-2 text-sm text-gray-400">({p.year})</span> : null}
+                </div>
                 {p.summary ? <p className="mt-1 text-sm text-gray-300">{p.summary}</p> : null}
                 {!!p.stack?.length && <TechBadges items={p.stack} />}
                 {!!p.bullets?.length && (
@@ -118,9 +128,9 @@ export default function Home() {
                     ))}
                   </ul>
                 )}
-                {p.links && (p.links.github || p.links.live) ? (
+                {p.links && (isValidUrl(p.links.github) || isValidUrl(p.links.live)) ? (
                   <div className="mt-3 flex gap-4 text-sm underline">
-                    {p.links.github && (
+                    {isValidUrl(p.links.github) && (
                       <a
                         href={p.links.github}
                         target="_blank"
@@ -130,7 +140,7 @@ export default function Home() {
                         GitHub
                       </a>
                     )}
-                    {p.links.live && (
+                    {isValidUrl(p.links.live) && (
                       <a
                         href={p.links.live}
                         target="_blank"
@@ -145,6 +155,12 @@ export default function Home() {
               </li>
             ))}
           </ul>
+
+          <div className="mt-6">
+            <a href="/projects" className="underline hover:text-gray-300 transition-colors">
+              View all projects →
+            </a>
+          </div>
         </Section>
       </div>
     </main>
