@@ -1,17 +1,20 @@
 import { ReactNode } from "react";
+import { Heading } from "@/components/heading";
 
 export function Section({
   id,
   title,
   children,
 }: {
-  id?: string;
+  id: string;
   title: string;
   children: ReactNode;
 }) {
   return (
     <section id={id} className="rounded-2xl bg-card p-8">
-      <h2 className="text-xl font-semibold">{title}</h2>
+      <Heading id={id} level={2}>
+        {title}
+      </Heading>
       <div className="mt-4 space-y-3">{children}</div>
     </section>
   );
