@@ -70,6 +70,17 @@ export default function Home() {
           ))}
         </ul>
       </Section>
+
+      {/* Skills Section */}
+      <Section id="skills" title="Skills">
+        <div className="grid gap-3 sm:grid-cols-2">
+          <KV k="Languages" v={skills.languages.join(", ")} />
+          <KV k="Frameworks" v={skills.frameworks.join(", ")} />
+          <KV k="Cloud/DevOps" v={skills.cloudDevOps.join(", ")} />
+          <KV k="Databases" v={skills.databases.join(", ")} />
+          <KV k="Concepts" v={skills.concepts.join(", ")} />
+        </div>
+      </Section>
     </main>
   );
 }
